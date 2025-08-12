@@ -63,7 +63,7 @@
     .hamb{display:none; border:1px solid var(--border); background:transparent; color:var(--text); border-radius:10px; padding:8px}
 
     /* Mobile menu */
-    #mnav{display:none; border-top:1px solid var(--border); background:rgba(11,15,22,.85)}
+    #mnav{display:none; border-top:1px solid var(--border); background:rgba(11,15,22,.92)}
     #mnav .inner{display:grid; gap:2px; padding:10px 0}
     #mnav a{padding:10px; border-radius:10px; margin:0 4px}
     #mnav a:hover{background:rgba(255,255,255,.05)}
@@ -122,7 +122,9 @@
   <header>
     <div class="wrap nav">
       <a href="#top" class="brand">
-        <img src="./assets/IronGrid%20Security%20Logo.png" alt="MG logo" loading="eager" decoding="async" fetchpriority="high">
+        <img src="./assets/IronGrid%20Security%20Logo.png" alt="MG logo"
+             loading="eager" decoding="async" fetchpriority="high"
+             onerror="this.src='https://dummyimage.com/72x72/0b0f16/00e5a8&text=MG'">
         <strong>Mahdi Ghaznawy</strong>
       </a>
       <nav class="menu" aria-label="Primary">
@@ -134,7 +136,7 @@
       </nav>
       <button id="hamb" class="hamb" aria-label="Open menu" aria-expanded="false" aria-controls="mnav">☰</button>
     </div>
-    <nav id="mnav" aria-label="Mobile">
+    <nav id="mnav" aria-label="Mobile" style="display:none">
       <div class="wrap inner">
         <a href="#projects">Projects</a>
         <a href="#deliverables">SOC Docs</a>
@@ -146,7 +148,7 @@
   </header>
 
   <!-- Hero -->
-  <section class="hero" id="top">
+  <section class="hero" id="main">
     <div class="wrap">
       <div class="grid">
         <div class="panel">
@@ -358,5 +360,8 @@
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+
+  <!-- No-JS fallback so nothing hides if JS is blocked -->
+  <noscript><style>#mnav{display:block} .menu{display:none}</style></noscript>
 </body>
 </html>
