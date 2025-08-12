@@ -4,182 +4,183 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mahdi Ghaznawy — Cybersecurity</title>
-  <meta name="description" content="Minimal, animated personal site for Mahdi Ghaznawy. Resume and selected PDFs." />
+  <meta name="description" content="Minimal, animated cybersecurity portfolio. Projects, SOC PDFs, and resume." />
+  <meta name="author" content="Mahdi Ghaznawy" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="./" />
 
-  <!-- Favicons / OG -->
+  <!-- Favicons / theme -->
   <link rel="icon" href="./assets/IronGrid%20Security%20Logo.png">
+  <link rel="apple-touch-icon" href="./assets/IronGrid%20Security%20Logo.png">
+  <meta name="theme-color" content="#0b0f16" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+
+  <!-- Open Graph -->
   <meta property="og:title" content="Mahdi Ghaznawy — Cybersecurity" />
-  <meta property="og:description" content="Animated, recruiter-friendly landing. Resume + selected work." />
+  <meta property="og:description" content="Explore projects and SOC deliverables. Download the resume." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="./assets/IronGrid%20Security%20Logo.png" />
-  <meta name="theme-color" content="#0b0f16" />
 
   <style>
+    /* ===== Theme ===== */
     :root{
-      --bg:#0b0f16; --panel:#0f1624; --panel2:#0c1220;
-      --text:#e7f1ff; --muted:#9fb1d1;
-      --accent:#00e5a8; --accent2:#37a1ff; --hot:#ff6b6b;
-      --ring:rgba(255,255,255,.12); --border:rgba(255,255,255,.14);
-      --shadow:0 24px 80px -30px rgba(0,0,0,.65);
-      --cardGlow:0 0 0 0 rgba(0,229,168,0.35), 0 0 55px 12px rgba(0,229,168,0.14);
+      --bg:#070b12; --bg2:#0b1220;
+      --panel:#0f1726; --panel2:#0c1423;
+      --text:#eaf0ff; --muted:#9fb1d1;
+      --cyber:#00e5a8; --blue:#37a1ff; --pink:#ff6bd5; --amber:#ffb86c;
+      --ring:rgba(255,255,255,.10); --border:rgba(255,255,255,.14);
+      --shadow:0 18px 60px -24px rgba(0,0,0,.65);
+      --glow:0 0 0 0 rgba(0,229,168,0.32), 0 0 60px 10px rgba(0,229,168,0.14);
     }
-    /* Base */
+
+    /* ===== Base ===== */
+    *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0; color:var(--text);
       background:
-        radial-gradient(80rem 60rem at 15% -10%, rgba(55,161,255,.16), transparent 45%),
+        radial-gradient(80rem 60rem at 8% -10%, rgba(55,161,255,.14), transparent 45%),
         radial-gradient(70rem 60rem at 110% 10%, rgba(0,229,168,.16), transparent 40%),
-        radial-gradient(60rem 60rem at 30% 120%, rgba(255,107,107,.08), transparent 45%),
         var(--bg);
-      font:16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-      overflow-x:hidden; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
     }
-    /* Animated aurora film */
-    .film::before{
-      content:""; position:fixed; inset:-4rem; z-index:-3; pointer-events:none;
-      background-image: linear-gradient(120deg, rgba(55,161,255,.10), rgba(0,229,168,.10), rgba(255,145,90,.08));
-      background-size:400% 400%; animation:aurora 22s linear infinite; filter:saturate(115%);
-    }
-    @keyframes aurora{0%{background-position:0% 0%}100%{background-position:200% 200%}}
-    /* Subtle grid */
-    .gridfx::after{
-      content:""; position:fixed; inset:0; z-index:-2; pointer-events:none; opacity:.35;
-      background:
-        linear-gradient(transparent 98%, rgba(255,255,255,.05) 0) 0 0/100% 24px,
-        linear-gradient(90deg, transparent 98%, rgba(255,255,255,.05) 0) 0 0/24px 100%;
-      mix-blend-mode:overlay;
-      animation:gridshift 40s linear infinite;
-    }
-    @keyframes gridshift{0%{transform:translateY(0)}100%{transform:translateY(-24px)}}
-    /* Soft noise */
-    .noise::before{
-      content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.05;
-      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="n"><feTurbulence baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.6"/></svg>');
-    }
-
-    a{color:var(--accent); text-decoration:none}
+    a{color:var(--cyber); text-decoration:none}
     a:hover{text-decoration:underline}
-    .wrap{max-width:1200px; margin:0 auto; padding:0 20px}
-    img{display:block; max-width:100%; height:auto}
+    img{max-width:100%; height:auto; display:block}
+    .wrap{max-width:1160px; margin:0 auto; padding:0 18px}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-    /* Header */
-    header{position:sticky; top:0; z-index:50; backdrop-filter: blur(12px); background:rgba(11,15,22,.55); border-bottom:1px solid var(--ring)}
-    .nav{display:flex; align-items:center; justify-content:space-between; padding:12px 0}
-    .brand{display:flex; align-items:center; gap:12px}
-    .brand img{width:40px; height:40px; border-radius:10px; border:1px solid var(--ring); box-shadow:var(--cardGlow)}
-    .brand strong{font-weight:900; letter-spacing:.3px}
-    .menu{display:flex; gap:18px; align-items:center}
-    .menu a{color:#eaf3ff; opacity:.95}
-    .menu a:hover{color:var(--accent)}
-    .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px;
-         background:var(--accent); color:#061d15; font-weight:800; letter-spacing:.2px; border:1px solid #0b2a21;
-         box-shadow:var(--cardGlow); transform:translateZ(0); transition:transform .18s ease, filter .18s ease}
-    .btn:hover{text-decoration:none; filter:saturate(1.05); transform:translateY(-1px)}
-    .hamb{display:none; border:1px solid var(--ring); color:#eaf3ff; background:transparent; border-radius:10px; padding:8px 10px}
+    /* ===== Background layers ===== */
+    .film::before{
+      content:""; position:fixed; inset:-6rem; z-index:-2; pointer-events:none;
+      background-image: linear-gradient(130deg, rgba(55,161,255,0.10), rgba(0,229,168,0.10), rgba(255,145,90,0.06));
+      background-size:400% 400%;
+      animation:shift 22s linear infinite;
+      filter:saturate(120%);
+    }
+    .grid::after{
+      content:""; position:fixed; inset:-2rem; z-index:-3; pointer-events:none; opacity:.65;
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 24px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 24px);
+      transform: perspective(900px) rotateX(50deg) translateY(18vh);
+      filter: blur(.4px);
+    }
+    .noise::after{
+      content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.04;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="n"><feTurbulence baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.6"/></svg>');
+    }
+    @keyframes shift{0%{background-position:0% 0%}100%{background-position:200% 200%}}
+
+    /* ===== Header ===== */
+    header{position:sticky; top:0; z-index:50; backdrop-filter:blur(10px); background:rgba(11,15,22,.65); border-bottom:1px solid var(--ring)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:10px 0}
+    .brand{display:flex; align-items:center; gap:10px}
+    .brand img{width:36px; height:36px; border-radius:9px; border:1px solid var(--ring); box-shadow:var(--glow)}
+    .brand strong{font-weight:900; letter-spacing:.2px}
+    .menu{display:flex; gap:16px; align-items:center}
+    .menu a{color:var(--text); opacity:.92}
+    .menu a:hover{color:var(--cyber)}
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      background:var(--cyber); color:#081217; font-weight:900; letter-spacing:.25px;
+      border-radius:12px; padding:10px 14px; border:1px solid #0a1f18; box-shadow:var(--glow);
+      transition:transform .18s ease}
+    .btn:hover{text-decoration:none; transform:translateY(-1px)}
+    .hamb{display:none; border:1px solid var(--ring); background:transparent; color:var(--text); border-radius:10px; padding:8px}
 
     /* Mobile menu */
     #mnav{display:none; border-top:1px solid var(--ring); background:rgba(11,15,22,.92)}
-    #mnav .inner{display:grid; gap:3px; padding:10px 0}
-    #mnav a{padding:10px 12px; border-radius:10px; margin:0 6px}
-    #mnav a:hover{background:rgba(255,255,255,.06)}
+    #mnav .inner{display:grid; gap:2px; padding:10px 0}
+    #mnav a{padding:10px; border-radius:10px; margin:0 4px}
+    #mnav a:hover{background:rgba(255,255,255,.05)}
 
-    /* Hero */
-    .hero{position:relative; padding:46px 0 34px}
-    .hero-grid{display:grid; gap:22px; grid-template-columns: 1.2fr .8fr}
-    .panel{background:var(--panel); border:1px solid var(--ring); border-radius:18px; padding:18px; box-shadow:var(--shadow)}
-    .panel2{background:var(--panel2); border:1px solid var(--ring); border-radius:18px; padding:18px; box-shadow:var(--shadow)}
-    .pill{display:inline-flex; align-items:center; gap:10px; padding:8px 12px; border-radius:999px; border:1px solid var(--ring);
-          background:rgba(255,255,255,.05); color:#cfe3ff; font-size:.9rem}
-    h1{margin:10px 0 0; font-size: clamp(32px, 6vw, 56px); line-height:1.02}
-    .tw{color:var(--accent)}
-    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
-    .ghost{background:transparent; color:#eaf3ff; border:1px solid var(--ring)}
-    .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px}
-    .kpi{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid var(--ring);
-         border-radius:14px; text-align:center; padding:14px; animation:float 7s ease-in-out infinite}
-    .kpi .num{font-size:1.8rem; font-weight:900; color:var(--accent)}
+    /* ===== Hero ===== */
+    .hero{padding:34px 0 26px; position:relative}
+    canvas#rain{position:absolute; inset:0; width:100%; height:100%; z-index:-1; opacity:.35; mix-blend-mode:screen}
+    .hero .grid{display:grid; gap:20px; grid-template-columns: 1.1fr .9fr}
+    .badge{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--ring); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); padding:6px 10px; border-radius:999px; font-size:.88rem}
+    .glitch{font-weight:1000; font-size: clamp(32px, 7vw, 72px); line-height:.95; letter-spacing:.5px; position:relative; display:inline-block}
+    .glitch::before,.glitch::after{content:attr(data-text); position:absolute; left:0; top:0; opacity:.75}
+    .glitch::before{color:var(--pink); transform:translate(2px,-1px); clip-path: polygon(0 0,100% 0,100% 46%,0 46%)}
+    .glitch::after{color:var(--blue); transform:translate(-2px,1px); clip-path: polygon(0 54%,100% 54%,100% 100%,0 100%)}
+    .sub{color:#cfe0ff; max-width:58ch; margin-top:10px}
+    .cta-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .panel{background:var(--panel); border:1px solid var(--ring); border-radius:16px; padding:16px; box-shadow:var(--shadow)}
+    .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px}
+    .kpi{background:var(--panel2); border:1px solid var(--ring); border-radius:14px; padding:14px; text-align:center; animation:float 6s ease-in-out infinite}
+    .kpi .num{font-size:1.7rem; font-weight:1000; color:var(--cyber)}
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-    /* Showcase grid */
+    /* ===== Sections ===== */
     section{padding:38px 0}
-    h2{margin:0 0 10px; font-size: clamp(22px, 4vw, 32px)}
-    .grid{display:grid; gap:16px; grid-template-columns:repeat(3,1fr)}
-    .card{
-      position:relative; padding:16px; border-radius:16px;
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border:1px solid var(--ring); box-shadow:var(--shadow);
-      transform-style:preserve-3d; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      cursor:pointer; overflow:hidden;
-    }
-    .card:hover{transform:translateY(-6px) rotateX(2deg) rotateY(-2deg); box-shadow:0 30px 90px -40px rgba(0,0,0,.85); border-color:rgba(0,229,168,.35)}
-    .tag{display:inline-flex; align-items:center; gap:8px; font-size:.85rem; color:var(--muted)}
-    .dot{width:7px; height:7px; border-radius:50%; background:var(--accent)}
-    .title{margin:8px 0 2px; font-weight:800}
-    .mini{color:var(--muted); font-size:.92rem}
-    .shine{position:absolute; inset:-40%; background:conic-gradient(from 180deg at 50% 50%, transparent, rgba(255,255,255,.12), transparent);
-           transform:translateZ(0) rotate(0deg); pointer-events:none; animation:spin 10s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    /* List links */
-    .list{display:grid; gap:10px}
-    .list a{display:flex; justify-content:space-between; gap:10px; padding:12px 14px; border-radius:12px;
-            background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-            border:1px solid var(--ring); transition:transform .18s ease}
-    .list a:hover{transform:translateY(-3px)}
+    h2{margin:0 0 6px; font-size: clamp(22px, 4vw, 34px)}
     .muted{color:var(--muted)}
+    .grid3{display:grid; gap:14px; grid-template-columns:repeat(3,1fr)}
+    .card{
+      position:relative; border-radius:16px; padding:16px; background:var(--panel2);
+      border:1px solid var(--ring); box-shadow:var(--shadow);
+      transition:transform .2s ease, box-shadow .2s ease;
+      will-change:transform;
+    }
+    .card:hover{transform:translateY(-6px); box-shadow:0 24px 80px -34px rgba(0,0,0,.88)}
+    .card::before{
+      content:""; position:absolute; inset:-1px; border-radius:16px; padding:1px;
+      background:conic-gradient(from var(--ang,0deg), var(--cyber), var(--blue), var(--pink), var(--cyber));
+      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      animation:spin 8s linear infinite;
+    }
+    @keyframes spin{to{--ang:360deg}}
+    .tag{display:inline-flex; gap:6px; align-items:center; font-size:.82rem; color:var(--muted)}
+    .dot{width:7px; height:7px; background:var(--cyber); border-radius:50%}
+    .cta{margin-top:10px; display:inline-flex; align-items:center; gap:8px; color:var(--cyber)}
+    .list{display:grid; gap:10px}
+    .list a{display:flex; justify-content:space-between; gap:10px; background:var(--panel2); border:1px solid var(--ring); border-radius:12px; padding:12px; transition:transform .18s ease}
+    .list a:hover{transform:translateY(-3px)}
 
-    /* Status strip */
-    .strip{display:flex; justify-content:center; gap:14px; flex-wrap:wrap; padding:10px; border-top:1px solid var(--ring); color:var(--muted)}
-
-    /* Footer */
-    footer{border-top:1px solid var(--ring); padding:18px 0 42px; color:var(--muted); text-align:center}
-
-    /* Matrix rain canvas */
-    #rain{position:fixed; inset:0; z-index:-4; opacity:.35; mix-blend-mode:screen}
-
-    /* Reveal */
+    /* Scroll reveal */
     .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
     .reveal.in{opacity:1; transform:none}
 
-    /* Mobile */
-    @media (max-width: 980px){
-      .menu{display:none} .hamb{display:inline-flex}
-      .hero-grid{grid-template-columns:1fr}
-      .grid{grid-template-columns:1fr}
-      .kpis{grid-template-columns:repeat(3,1fr)}
-    }
-    @media (max-width: 560px){ .kpis{grid-template-columns:1fr 1fr} }
+    /* ===== Footer ===== */
+    footer{border-top:1px solid var(--ring); padding:18px 0 40px; color:var(--muted); text-align:center}
 
-    /* Reduce motion */
+    /* ===== Responsive ===== */
+    @media (max-width: 980px){
+      .hero .grid{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr 1fr}
+      .menu{display:none}
+      .hamb{display:inline-flex}
+    }
+    @media (max-width: 580px){
+      .grid3{grid-template-columns:1fr}
+    }
+
+    /* a11y / perf */
     @media (prefers-reduced-motion: reduce){
       *{animation:none!important; transition:none!important}
       html{scroll-behavior:auto}
-      #rain{display:none}
+      canvas#rain{display:none}
     }
-    a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+    a:focus-visible, button:focus-visible{ outline:2px solid var(--cyber); outline-offset:3px }
   </style>
 </head>
-<body class="film gridfx noise">
+<body class="film grid noise">
   <a class="sr-only" href="#main">Skip to content</a>
 
-  <!-- Matrix rain background -->
-  <canvas id="rain" aria-hidden="true"></canvas>
-
-  <!-- Header -->
+  <!-- ===== Header ===== -->
   <header>
     <div class="wrap nav">
       <a href="#top" class="brand">
         <img src="./assets/IronGrid%20Security%20Logo.png" alt="MG logo"
              loading="eager" decoding="async" fetchpriority="high"
-             onerror="this.src='https://dummyimage.com/80x80/0b0f16/00e5a8&text=MG'">
+             onerror="this.src='https://dummyimage.com/72x72/0b0f16/00e5a8&text=MG'">
         <strong>Mahdi Ghaznawy</strong>
       </a>
       <nav class="menu" aria-label="Primary">
-        <a href="#work">Work</a>
+        <a href="#work">Projects</a>
         <a href="#docs">SOC Docs</a>
         <a href="#contact">Contact</a>
         <a class="btn" href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">Resume</a>
@@ -188,7 +189,7 @@
     </div>
     <nav id="mnav" aria-label="Mobile" style="display:none">
       <div class="wrap inner">
-        <a href="#work">Work</a>
+        <a href="#work">Projects</a>
         <a href="#docs">SOC Docs</a>
         <a href="#contact">Contact</a>
         <a class="btn" href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">Resume</a>
@@ -196,143 +197,148 @@
     </nav>
   </header>
 
-  <!-- Hero -->
+  <!-- ===== Hero ===== -->
   <section class="hero" id="main">
-    <div class="wrap hero-grid">
-      <div class="panel reveal">
-        <span class="pill">Cybersecurity · SOC-ready</span>
-        <h1>Build. Break. <span class="tw" id="tw">Defend.</span></h1>
-        <div class="cta-row">
-          <a class="btn" href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">Download Resume</a>
-          <a class="btn ghost" href="https://mahdiqand.github.io/IronGrid-website/" target="_blank" rel="noopener">Company Portfolio</a>
-          <a class="btn ghost" href="mailto:mahdighaznawy2004@gmail.com">Email</a>
+    <canvas id="rain" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="grid">
+        <div class="panel reveal">
+          <span class="badge">Cybersecurity · SOC-ready</span>
+          <h1 class="glitch" data-text="Build · Break · Defend">Build · Break · Defend</h1>
+          <p class="sub">Minimal site. Maximum signal. Explore projects and SOC PDFs — or grab the resume.</p>
+          <div class="cta-row">
+            <a class="btn" href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">Download Resume</a>
+            <a class="btn" style="background:transparent; color:var(--text); border:1px solid var(--ring)"
+               href="https://mahdiqand.github.io/IronGrid-website/" target="_blank" rel="noopener">Open Full Portfolio</a>
+          </div>
+          <div class="kpis">
+            <div class="kpi reveal"><div class="num">24</div><div class="muted">Dashboards</div></div>
+            <div class="kpi reveal"><div class="num">60+</div><div class="muted">Detections</div></div>
+            <div class="kpi reveal"><div class="num">100%</div><div class="muted">Lab based</div></div>
+          </div>
         </div>
-        <div class="kpis">
-          <div class="kpi"><div class="num">24</div><div class="muted">Dashboards</div></div>
-          <div class="kpi"><div class="num">60+</div><div class="muted">Detections</div></div>
-          <div class="kpi"><div class="num">100%</div><div class="muted">Lab-based</div></div>
-        </div>
-      </div>
-      <div class="panel2 reveal" style="min-height:220px">
-        <h2 style="margin:0 0 6px">Signal over noise.</h2>
-        <p class="muted" style="max-width:60ch;margin:6px 0 0">Fewer words, more proof. Hand-picked case files & SOC PDFs below. Everything opens instantly.</p>
-        <div class="strip" style="border:none;padding:8px 0 0">
-          <span class="muted">Splunk ES</span>•<span class="muted">Wazuh</span>•<span class="muted">Elastic</span>•<span class="muted">Nessus</span>•<span class="muted">OpenVAS</span>•<span class="muted">pfSense</span>
+        <div class="panel reveal">
+          <h2 style="margin-bottom:8px">Stack</h2>
+          <div class="list">
+            <div class="card" style="--ang:0deg"><span class="tag"><span class="dot"></span>Splunk ES · Wazuh · Elastic</span></div>
+            <div class="card" style="--ang:120deg"><span class="tag"><span class="dot"></span>IR playbooks · NIST flow</span></div>
+            <div class="card" style="--ang:240deg"><span class="tag"><span class="dot"></span>Nessus · OpenVAS · CVSS</span></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Work tiles -->
+  <!-- ===== Projects ===== -->
   <section id="work">
     <div class="wrap">
-      <h2 class="reveal">Selected Work</h2>
-      <div class="grid">
-        <a class="card reveal" href="./assets/Lab%20Projects/Cybersecurity-Infrastructure_Upgrade_Post-Implementation_Kabul-Law.pdf" target="_blank" rel="noopener" type="application/pdf" aria-label="Cybersecurity Infrastructure — Post-Implementation (PDF)">
-          <div class="shine"></div>
-          <div class="tag"><span class="dot"></span> pfSense · Defender</div>
-          <div class="title">Infrastructure — Post-Implementation</div>
-          <div class="mini muted">Kabul Law</div>
+      <h2 class="reveal">Projects</h2>
+      <p class="muted reveal">Tap a card to open the PDF.</p>
+      <div class="grid3" style="margin-top:12px">
+        <a class="card reveal tilt" href="./assets/Lab%20Projects/Cybersecurity-Infrastructure_Upgrade_Post-Implementation_Kabul-Law.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <div class="tag"><span class="dot"></span>pfSense · Defender</div>
+          <h3>Infrastructure — Post-Implementation</h3>
         </a>
-        <a class="card reveal" href="./assets/Lab%20Projects/Digital-Forensic-Analysis_Autopsy_Unauthorized-Access.pdf" target="_blank" rel="noopener" type="application/pdf" aria-label="Digital Forensic Analysis — Unauthorized Access (PDF)">
-          <div class="shine"></div>
-          <div class="tag"><span class="dot"></span> Autopsy</div>
-          <div class="title">Insider Data Theft</div>
-          <div class="mini muted">Artifacts · Timeline</div>
+        <a class="card reveal tilt" href="./assets/Lab%20Projects/Digital-Forensic-Analysis_Autopsy_Unauthorized-Access.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <div class="tag"><span class="dot"></span>Autopsy</div>
+          <h3>Digital Forensics — Unauthorized Access</h3>
         </a>
-        <a class="card reveal" href="./assets/Lab%20Projects/Active-Directory_Lab-Deployment_Domain-Controller.pdf" target="_blank" rel="noopener" type="application/pdf" aria-label="Active Directory Lab — Domain Controller (PDF)">
-          <div class="shine"></div>
-          <div class="tag"><span class="dot"></span> AD · GPO</div>
-          <div class="title">Active Directory Lab</div>
-          <div class="mini muted">Domain Controller</div>
+        <a class="card reveal tilt" href="./assets/Lab%20Projects/Active-Directory_Lab-Deployment_Domain-Controller.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <div class="tag"><span class="dot"></span>AD · GPO</div>
+          <h3>Active Directory — Domain Controller</h3>
         </a>
-
-        <a class="card reveal" href="./assets/Lab%20Projects/Incident-Response_Risk-Management_Azumer-Water-Case.pdf" target="_blank" rel="noopener" type="application/pdf" aria-label="Incident Response & Risk Management — Azumer Water (PDF)">
-          <div class="shine"></div>
-          <div class="tag"><span class="dot"></span> Incident Response</div>
-          <div class="title">IR & Risk — Azumer Water</div>
-          <div class="mini muted">Root cause · Recovery</div>
+        <a class="card reveal tilt" href="./assets/Lab%20Projects/Incident-Response_Risk-Management_Azumer-Water-Case.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <div class="tag"><span class="dot"></span>Risk</div>
+          <h3>IR & Risk — Azumer Water</h3>
         </a>
-        <a class="card reveal" href="./assets/Lab%20Projects/Network-Vulnerability_Traffic-Analysis_Nmap-Wireshark.pdf" target="_blank" rel="noopener" type="application/pdf" aria-label="Network Vulnerability & Traffic (PDF)">
-          <div class="shine"></div>
-          <div class="tag"><span class="dot"></span> Nmap · Wireshark</div>
-          <div class="title">Network Vuln & Traffic</div>
-          <div class="mini muted">Anomalies · Fixes</div>
+        <a class="card reveal tilt" href="./assets/Lab%20Projects/Ethical-Guidelines_Security-Policy_DLP-Account-Management.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <div class="tag"><span class="dot"></span>Policy</div>
+          <h3>Security Policy — DLP · Accounts</h3>
         </a>
-        <a class="card reveal" href="./assets/Lab%20Projects/Ethical-Guidelines_Security-Policy_DLP-Account-Management.pdf" target="_blank" rel="noopener" type="application/pdf" aria-label="Ethical Guidelines & Security Policy (PDF)">
-          <div class="shine"></div>
-          <div class="tag"><span class="dot"></span> Policy</div>
-          <div class="title">DLP & Account Policy</div>
-          <div class="mini muted">Awareness</div>
+        <a class="card reveal tilt" href="./assets/Lab%20Projects/Network-Vulnerability_Traffic-Analysis_Nmap-Wireshark.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <div class="tag"><span class="dot"></span>Network</div>
+          <h3>Nmap · Wireshark — Traffic</h3>
         </a>
-      </div>
-      <div class="strip">
-        <span>More detail lives on my company portfolio →</span>
-        <a href="https://mahdiqand.github.io/IronGrid-website/" target="_blank" rel="noopener">IronGrid Security</a>
+        <a class="card reveal tilt" href="./assets/Lab%20Projects/Cybersecurity-Law_Compliance-Analysis_CFAA-ECPA-SOX.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <div class="tag"><span class="dot"></span>Compliance</div>
+          <h3>CFAA · ECPA · SOX</h3>
+        </a>
+        <a class="card reveal tilt" href="./assets/Lab%20Projects/IT-Change-Management_Organizational-Transition_Jaechap-Advisors.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <div class="tag"><span class="dot"></span>Change</div>
+          <h3>IT Change — Jaechap Advisors</h3>
+        </a>
+        <a class="card reveal tilt" href="./assets/Lab%20Projects/Wireless-Mobile-Security_Risk-Assessment-Mitigation.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <div class="tag"><span class="dot"></span>Wireless</div>
+          <h3>Mobile & Wi-Fi — Risk</h3>
+        </a>
+        <a class="card reveal tilt" href="./assets/Lab%20Projects/Cybersecurity-Infrastructure_Modernization-Plan_Kabul-Law.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <div class="tag"><span class="dot"></span>Modernization</div>
+          <h3>Infrastructure — Modernization Plan</h3>
+        </a>
+        <a class="card reveal tilt" href="./assets/Lab%20Projects/Organizational-Change-Management_Tech-Upgrades.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <div class="tag"><span class="dot"></span>Org Change</div>
+          <h3>Organizational Tech Upgrades</h3>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- SOC deliverables -->
+  <!-- ===== SOC Deliverables ===== -->
   <section id="docs">
     <div class="wrap">
       <h2 class="reveal">SOC Deliverables</h2>
-      <div class="list">
-        <a class="reveal" href="./assets/SOC%20Deliverables/SIEM-Monitoring_Alert-Triage_Splunk-Wazuh-ELK.pdf" target="_blank" rel="noopener" type="application/pdf">
-          <span>SIEM Monitoring & Alert Triage</span><small class="muted">Splunk · Wazuh · ELK</small>
+      <p class="muted reveal">PDFs — dashboards, detections, triage, and reporting.</p>
+      <div class="list" style="margin-top:12px">
+        <a class="reveal tilt" href="./assets/SOC%20Deliverables/SIEM-Monitoring_Alert-Triage_Splunk-Wazuh-ELK.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <span>SIEM Monitoring & Alert Triage</span><small>Splunk · Wazuh · ELK</small>
         </a>
-        <a class="reveal" href="./assets/SOC%20Deliverables/Incident-Response_Lifecycle_Simulated-Corporate-Network.pdf" target="_blank" rel="noopener" type="application/pdf">
-          <span>Incident Response Lifecycle (Simulated)</span><small class="muted">NIST flow</small>
+        <a class="reveal tilt" href="./assets/SOC%20Deliverables/Incident-Response_Lifecycle_Simulated-Corporate-Network.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <span>Incident Response Lifecycle</span><small>NIST flow</small>
         </a>
-        <a class="reveal" href="./assets/SOC%20Deliverables/Vulnerability-Scanning_Remediation_Nessus-OpenVAS.pdf" target="_blank" rel="noopener" type="application/pdf">
-          <span>Vulnerability Scanning & Remediation</span><small class="muted">CVSS-based</small>
+        <a class="reveal tilt" href="./assets/SOC%20Deliverables/Vulnerability-Scanning_Remediation_Nessus-OpenVAS.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <span>Vulnerability Scanning & Remediation</span><small>CVSS-based</small>
         </a>
-        <a class="reveal" href="./assets/SOC%20Deliverables/Monthly-Threat-Intelligence_Briefing_Lab-Environment.pdf" target="_blank" rel="noopener" type="application/pdf">
-          <span>Monthly Threat Intelligence Briefing</span><small class="muted">CISA · OTX · AbuseIPDB</small>
+        <a class="reveal tilt" href="./assets/SOC%20Deliverables/Monthly-Threat-Intelligence_Briefing_Lab-Environment.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <span>Monthly Threat Intelligence Briefing</span><small>CISA · OTX · AbuseIPDB</small>
         </a>
-        <a class="reveal" href="./assets/SOC%20Deliverables/Security-Awareness_Training_Phishing-Simulation.pdf" target="_blank" rel="noopener" type="application/pdf">
-          <span>Security Awareness & Phishing Simulation</span><small class="muted">GoPhish</small>
+        <a class="reveal tilt" href="./assets/SOC%20Deliverables/Security-Awareness_Training_Phishing-Simulation.pdf" target="_blank" rel="noopener" type="application/pdf">
+          <span>Security Awareness & Phishing Simulation</span><small>GoPhish</small>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
+  <!-- ===== Contact ===== -->
   <section id="contact">
     <div class="wrap">
       <h2 class="reveal">Contact</h2>
-      <div class="grid" style="grid-template-columns:repeat(3,1fr)">
-        <div class="panel2 reveal">
-          <div class="tag"><span class="dot"></span> Email</div>
-          <h3 style="margin:8px 0 0">mahdighaznawy2004@gmail.com</h3>
-          <div class="cta-row" style="margin-top:12px">
-            <a class="btn" href="mailto:mahdighaznawy2004@gmail.com">Say hi</a>
-          </div>
+      <div class="grid3" style="margin-top:12px">
+        <div class="card reveal">
+          <h3>Reach me</h3>
+          <p class="muted">Email is best.</p>
+          <p><a href="mailto:mahdighaznawy2004@gmail.com">mahdighaznawy2004@gmail.com</a></p>
+          <p><a href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">Download Resume</a></p>
         </div>
-        <div class="panel2 reveal">
-          <div class="tag"><span class="dot"></span> Profiles</div>
-          <h3 style="margin:8px 0 0"><a href="https://github.com/MahdiQand" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/mahdi-ghaznawy-3aaa3b315/" target="_blank" rel="noopener">LinkedIn</a></h3>
-          <div class="cta-row" style="margin-top:12px">
-            <a class="btn ghost" href="https://mahdiqand.github.io/IronGrid-website/" target="_blank" rel="noopener">Company site</a>
-          </div>
+        <div class="card reveal">
+          <h3>Profiles</h3>
+          <p><a href="https://github.com/MahdiQand" target="_blank" rel="noopener">GitHub</a></p>
+          <p><a href="https://www.linkedin.com/in/mahdi-ghaznawy-3aaa3b315/" target="_blank" rel="noopener">LinkedIn</a></p>
+          <p><a href="https://mahdiqand.github.io/IronGrid-website/" target="_blank" rel="noopener">IronGrid Security</a></p>
         </div>
-        <div class="panel2 reveal">
-          <div class="tag"><span class="dot"></span> Resume</div>
-          <h3 style="margin:8px 0 0">One click download</h3>
-          <div class="cta-row" style="margin-top:12px">
-            <a class="btn" href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">Download</a>
-          </div>
+        <div class="card reveal">
+          <h3>Quick stats</h3>
+          <p class="muted">24 dashboards • 60+ detections • 100% lab</p>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="wrap">© <span id="year"></span> Mahdi Ghaznawy • built with plain HTML/CSS/JS</div>
+    <div class="wrap">© <span id="year"></span> Mahdi Ghaznawy — animated by plain HTML/CSS/JS</div>
   </footer>
 
   <script>
-    // ===== Mobile menu
+    /* ===== Mobile menu ===== */
     (function(){
       const b=document.getElementById('hamb'), m=document.getElementById('mnav');
       if(!b||!m) return;
@@ -343,57 +349,62 @@
       });
     })();
 
-    // ===== Matrix rain (lightweight)
+    /* ===== Matrix code rain (lightweight) ===== */
     (function(){
-      const c = document.getElementById('rain'); const ctx = c.getContext('2d');
-      let w,h,cols,y,chars;
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      function resize(){
-        w = c.width = window.innerWidth; h = c.height = window.innerHeight;
-        const colSize = 14; cols = Math.floor(w/colSize);
-        y = Array(cols).fill(0);
-        chars = '01▮▯░▒▓/\\|-=+'.split('');
+      const c=document.getElementById('rain'); if(!c) return;
+      const ctx=c.getContext('2d'); let w,h,cols,y,chars,anim,aOK=true;
+      const DPR=window.devicePixelRatio||1;
+      function size(){
+        w=c.width=innerWidth*DPR; h=c.height=innerHeight*DPR;
+        c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px';
+        const colWidth=Math.max(12, Math.min(18, Math.floor(innerWidth/80)));
+        cols=Math.floor(innerWidth/colWidth);
+        y=Array(cols).fill(0);
+        chars='01▮▯░▒▓/\\|-=+'.split('');
+        ctx.font = (12*DPR)+'px monospace';
       }
       function draw(){
-        ctx.fillStyle = 'rgba(11,15,22,0.18)'; ctx.fillRect(0,0,w,h);
-        ctx.fillStyle = '#00e5a8'; ctx.font = '14px monospace';
+        if(!aOK) return;
+        ctx.fillStyle='rgba(7,11,18,0.20)'; ctx.fillRect(0,0,w,h);
+        ctx.fillStyle='#64ffda';
         for(let i=0;i<cols;i++){
-          const t = chars[(Math.random()*chars.length)|0];
-          ctx.fillText(t, i*14, y[i]*14);
-          y[i] = (y[i]*14 > h && Math.random()>0.975) ? 0 : y[i]+1;
+          const t=chars[(Math.random()*chars.length)|0];
+          const x=i*(w/cols); const yy=y[i]*16*DPR;
+          ctx.fillText(t, x, yy);
+          y[i] = (yy>h && Math.random()>0.975) ? 0 : y[i]+1;
         }
-        if(!reduce) requestAnimationFrame(draw);
+        anim=requestAnimationFrame(draw);
       }
-      window.addEventListener('resize', resize);
-      resize(); if(!reduce) draw();
+      size(); draw();
+      addEventListener('resize', ()=>{ cancelAnimationFrame(anim); size(); draw(); }, {passive:true});
+      document.addEventListener('visibilitychange', ()=>{ aOK=!document.hidden; if(aOK){draw();} });
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches){ c.remove(); }
     })();
 
-    // ===== Scroll reveal
-    const io = new IntersectionObserver((ents)=> {
-      ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
-    }, {threshold:.12});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-    // ===== Tiny typewriter swap
+    /* ===== Tilt / magnetic effect ===== */
     (function(){
-      const el = document.getElementById('tw');
-      const words = ['Defend.','Detect.','Respond.','Harden.'];
-      let i=0; let t; const speed=120;
-      function type(word,cb){ let k=0; el.textContent=''; (function step(){ el.textContent=word.slice(0,++k); if(k<word.length) t=setTimeout(step,speed); else setTimeout(cb,1200) })();}
-      function loop(){ type(words[i%words.length], ()=>{ i++; loop(); }); }
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(!reduce) loop();
+      const els=[...document.querySelectorAll('.tilt')];
+      const clamp=(n,min,max)=>Math.max(min,Math.min(n,max));
+      els.forEach(el=>{
+        el.addEventListener('pointermove', e=>{
+          const r=el.getBoundingClientRect();
+          const x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+          const rx=clamp((.5-y)*10,-6,6), ry=clamp((x-.5)*10,-6,6);
+          el.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+        });
+        el.addEventListener('pointerleave', ()=>{ el.style.transform='translateY(0)'; });
+      });
     })();
 
-    // ===== Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    /* ===== Scroll reveal ===== */
+    const obs=new IntersectionObserver((en)=>{en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in'); obs.unobserve(e.target);}})},{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    /* ===== Year ===== */
+    document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 
   <!-- No-JS fallback -->
-  <noscript>
-    <style>
-      #mnav{display:block}.menu{display:none}.reveal{opacity:1;transform:none}#rain{display:none}
-    </style>
-  </noscript>
+  <noscript><style>#mnav{display:block}.menu{display:none}.reveal{opacity:1;transform:none}canvas#rain{display:none}</style></noscript>
 </body>
 </html>
