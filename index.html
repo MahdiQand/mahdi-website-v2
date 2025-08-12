@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mahdi Ghaznawy · /home/mahdi</title>
+  <meta name="description" content="Cybersecurity analyst portfolio in a hacker-themed, interactive terminal/editor. Projects, skills, SOC deliverables, and a recruiter-ready resume." />
+  <meta name="author" content="Mahdi Ghaznawy" />
+
+  <!-- OG -->
+  <meta property="og:title" content="Mahdi Ghaznawy — Cybersecurity Analyst" />
+  <meta property="og:description" content="Hacker‑themed personal site. Explore projects, detections, and incident response work. Press / for the command palette." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Crect width='1200' height='630' fill='%23090c12'/%3E%3Ctext x='60' y='360' fill='%23ffb86c' font-family='monospace' font-size='72'%3EMahdi%20Ghaznawy%20%7C%20Cybersecurity%3C/text%3E%3C/svg%3E" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon (inline) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='12' width='64' height='64' fill='%23090c12'/%3E%3Ctext x='12' y='44' font-family='monospace' font-size='28' fill='%23ffb86c'%3EMG%3C/text%3E%3C/svg%3E" />
+
+  <style>
+    :root{
+      --bg:#090c12;          /* deep graphite */
+      --panel:#0f131b;       /* editor background */
+      --panel-2:#101620;     /* terminals/panes */
+      --grid:#1b2331;        /* grid lines */
+      --text:#d7e1fb;        /* base text */
+      --muted:#93a4c0;       /* secondary text */
+      --amber:#ffb86c;       /* retro amber */
+      --teal:#64ffda;        /* teal accent */
+      --magenta:#ff79c6;     /* subtle highlight */
+      --good:#27ef96;        /* success */
+      --warn:#ff9f43;        /* warning */
+      --bad:#ff5566;         /* alert */
+      --shadow: 0 18px 60px -20px rgba(0,0,0,.6);
+    }
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "JetBrains Mono", monospace;line-height:1.5;overflow-x:hidden}
+    a{color:var(--teal);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* Background: code rain + subtle grid */
+    .grid{position:fixed;inset:0;z-index:-2;background:
+      linear-gradient(transparent 98%, rgba(255,255,255,.03) 0) 0 0/100% 24px,
+      linear-gradient(90deg, transparent 98%, rgba(255,255,255,.03) 0) 0 0/24px 100%,
+      radial-gradient(1200px 800px at 10% -10%, rgba(100,255,218,.06), transparent 50%),
+      radial-gradient(900px 700px at 110% 10%, rgba(255,184,108,.06), transparent 50%),
+      var(--bg);
+    }
+    canvas#rain{position:fixed;inset:0;z-index:-1;opacity:.35;mix-blend-mode:screen}
+    .scanlines{position:fixed;inset:0;pointer-events:none;z-index:5;background:linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,.08) 50%), linear-gradient(90deg, rgba(0,0,0,.05), rgba(0,0,0,0), rgba(255,255,255,.02));background-size:100% 2px, 3px 100%;}
+
+    /* Top bar */
+    .top{position:sticky;top:0;z-index:10;background:rgba(9,12,18,.7);backdrop-filter: blur(8px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .wrap{max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+    .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));padding:6px 10px;border-radius:10px;font-size:12px;color:var(--muted)}
+
+    /* Editor shell */
+    .shell{max-width:1200px;margin:24px auto;padding:0 20px;display:grid;grid-template-columns:240px 1fr;gap:16px}
+    .explorer{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:14px;box-shadow:var(--shadow)}
+    .explorer h3{margin:0;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06);color:var(--amber);font-weight:700;letter-spacing:.02em}
+    .tree{list-style:none;margin:0;padding:10px}
+    .tree li{margin:2px 0}
+    .node{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .node:hover{background:rgba(255,255,255,.04);color:var(--text)}
+    .node.active{background:linear-gradient(90deg, rgba(255,184,108,.14), rgba(100,255,218,.14));color:var(--text);border:1px solid rgba(255,255,255,.06)}
+
+    .editor{display:grid;grid-template-rows:auto 1fr auto;min-height:70vh;background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+    .tabs{display:flex;gap:8px;padding:8px;border-bottom:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02))}
+    .tab{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer}
+    .tab.active{background:rgba(255,184,108,.14);color:var(--text);border:1px solid rgba(255,255,255,.06)}
+
+    .pane{display:none;padding:18px 18px 12px;}
+    .pane.active{display:block}
+
+    .code{background:var(--panel-2);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;overflow:auto}
+    .k{color:var(--amber)}
+    .v{color:var(--teal)}
+    .c{color:#6b7da1}
+
+    .grid3{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .card{background:var(--panel-2);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .18s ease}
+    .card:hover{transform:translateY(-4px);box-shadow:0 24px 80px -34px rgba(0,0,0,.8)}
+    .tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:4px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
+
+    /* Status bar */
+    .status{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-top:1px solid rgba(255,255,255,.06);background:#0d121a;color:var(--muted);font-size:12px}
+
+    /* Terminal */
+    .terminal{max-width:1200px;margin:16px auto 40px;padding:0 20px}
+    .term{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+    .term-head{display:flex;align-items:center;gap:8px;padding:10px;border-bottom:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02))}
+    .dot{width:10px;height:10px;border-radius:50%}
+    .out{padding:14px 14px 0;min-height:160px}
+    .line{margin:0 0 6px}
+    .prompt{color:var(--teal)}
+    .input{display:flex;align-items:center;gap:8px;padding:12px}
+    .input input{flex:1;background:transparent;border:none;color:var(--text);outline:none;font:inherit}
+
+    /* Command palette */
+    .palette{position:fixed;inset:0;display:none;align-items:flex-start;justify-content:center;padding-top:10vh;background:rgba(0,0,0,.6);backdrop-filter: blur(6px);z-index:50}
+    .pal{width:min(720px,92vw);background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:12px;box-shadow:var(--shadow)}
+    .pal header{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .pal input{width:100%;background:transparent;border:none;outline:none;color:var(--text);font:inherit}
+    .pal ul{list-style:none;margin:0;padding:6px;max-height:46vh;overflow:auto}
+    .pal li{padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;justify-content:space-between;color:var(--muted)}
+    .pal li:hover{background:rgba(255,255,255,.05);color:var(--text)}
+
+    /* Glitch name */
+    .glitch{position:relative;display:inline-block}
+    .glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;opacity:.7;clip-path: polygon(0 0,100% 0,100% 45%,0 45%);}
+    .glitch::before{color:var(--magenta);transform:translate(2px,-1px)}
+    .glitch::after{color:var(--teal);clip-path: polygon(0 55%,100% 55%,100% 100%,0 100%);transform:translate(-2px,1px)}
+
+    /* Shortcut hint */
+    .kbd{display:inline-block;border:1px solid rgba(255,255,255,.2);padding:2px 6px;border-radius:6px;background:rgba(255,255,255,.06);font-size:12px;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width: 920px){.shell{grid-template-columns:1fr}.explorer{order:2}.editor{order:1}}
+  </style>
+</head>
+<body>
+  <div class="sr-only">Press / for Command Palette. Type help in the terminal.</div>
+  <div class="grid" aria-hidden="true"></div>
+  <canvas id="rain" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Top -->
+  <div class="top">
+    <div class="wrap">
+      <strong class="glitch" data-text=":/ Mahdi Ghaznawy">:/ Mahdi Ghaznawy</strong>
+      <span class="badge">Cybersecurity Analyst</span>
+      <span class="badge">Detections • IR • Vuln Mgmt</span>
+      <span class="badge">Resume <span class="kbd">R</span></span>
+      <span class="badge">Palette <span class="kbd">/</span></span>
+    </div>
+  </div>
+
+  <!-- Editor Shell -->
+  <main class="shell" id="main">
+    <aside class="explorer" aria-label="Explorer">
+      <h3>EXPLORER</h3>
+      <ul class="tree">
+        <li><div class="node active" data-open="summary"><span>README.md</span></div></li>
+        <li><div class="node" data-open="skills"><span>skills.yaml</span></div></li>
+        <li><div class="node" data-open="projects"><span>projects/</span></div></li>
+        <li><div class="node" data-open="docs"><span>soc-deliverables/</span></div></li>
+        <li><div class="node" data-open="certs"><span>certs.json</span></div></li>
+        <li><div class="node" data-open="contact"><span>contact.txt</span></div></li>
+      </ul>
+    </aside>
+
+    <section class="editor" aria-label="Editor">
+      <nav class="tabs">
+        <div class="tab active" data-open="summary">README.md</div>
+        <div class="tab" data-open="projects">projects/</div>
+        <div class="tab" data-open="docs">soc-deliverables/</div>
+        <div class="tab" data-open="skills">skills.yaml</div>
+        <div class="tab" data-open="certs">certs.json</div>
+        <div class="tab" data-open="contact">contact.txt</div>
+      </nav>
+
+      <!-- Panes -->
+      <div id="summary" class="pane active" role="region" aria-labelledby="summary-tab">
+        <div class="code" role="document" aria-label="README.md">
+<pre>// SOC-ready analyst focused on <span class="k">detections</span>, <span class="k">incident-response</span>, and <span class="k">vulnerability-management</span>.
+// Portfolio work is lab-based (since Dec 2022) and documented like real client engagements.
+
+<span class="c">## quick-stats</span>
+- dashboards: <span class="v">24</span>
+- detections: <span class="v">60+</span>
+- environment: <span class="v">100% lab</span>
+
+<span class="c">## highlights</span>
+- SIEM tuning & triage that favors high-fidelity alerts
+- IR playbooks mapped to NIST; concise exec summaries
+- CVSS-prioritized remediation with validation rescans
+
+<span class="c">## links</span>
+- portfolio: <a href="https://mahdiqand.github.io/IronGrid-website/" target="_blank" rel="noopener">IronGrid Security</a>
+- github: <a href="https://github.com/MahdiQand" target="_blank" rel="noopener">MahdiQand</a>
+- linkedin: <a href="https://www.linkedin.com/in/mahdi-ghaznawy-3aaa3b315/" target="_blank" rel="noopener">/in/mahdi-ghaznawy-3aaa3b315</a>
+- resume: <a href="/assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" download>download</a></pre>
+        </div>
+      </div>
+
+      <div id="projects" class="pane" role="region">
+        <div class="grid3">
+          <article class="card">
+            <div class="tag">pfSense • Defender</div>
+            <h3>Cybersecurity Infrastructure Upgrade</h3>
+            <p>VLAN segmentation, EDR rollout, backups; phishing clicks reduced from 25% → &lt;10%.</p>
+            <p><a href="https://mahdiqand.github.io/IronGrid-website/#projects" target="_blank" rel="noopener">case study →</a></p>
+          </article>
+          <article class="card">
+            <div class="tag">Autopsy • FTK</div>
+            <h3>Insider Data Theft Investigation</h3>
+            <p>Artifact recovery, timeline analysis, and chain‑of‑custody documentation.</p>
+            <p><a href="https://mahdiqand.github.io/IronGrid-website/#projects" target="_blank" rel="noopener">case study →</a></p>
+          </article>
+          <article class="card">
+            <div class="tag">Splunk • Wazuh • ELK</div>
+            <h3>SIEM Monitoring & Triage</h3>
+            <p>Dashboards, correlation rules, and escalation paths with evidence snapshots.</p>
+            <p><a href="https://mahdiqand.github.io/IronGrid-website/#deliverables" target="_blank" rel="noopener">deliverables →</a></p>
+          </article>
+        </div>
+      </div>
+
+      <div id="docs" class="pane" role="region">
+        <div class="grid3">
+          <a class="card" href="/assets/SOC%20Deliverables/SIEM-Monitoring_Alert-Triage_Splunk-Wazuh-ELK.pdf">SIEM Monitoring & Alert Triage (PDF)</a>
+          <a class="card" href="/assets/SOC%20Deliverables/Incident-Response_Lifecycle_Simulated-Corporate-Network.pdf">Incident Response Lifecycle (PDF)</a>
+          <a class="card" href="/assets/SOC%20Deliverables/Vulnerability-Scanning_Remediation_Nessus-OpenVAS.pdf">Vulnerability Scanning & Remediation (PDF)</a>
+          <a class="card" href="/assets/SOC%20Deliverables/Monthly-Threat-Intelligence_Briefing_Lab-Environment.pdf">Threat Intelligence Briefing (PDF)</a>
+          <a class="card" href="/assets/SOC%20Deliverables/Security-Awareness_Training_Phishing-Simulation.pdf">Security Awareness & Phishing Simulation (PDF)</a>
+        </div>
+      </div>
+
+      <div id="skills" class="pane" role="region">
+        <div class="code" aria-label="skills.yaml">
+<pre>siem: [Splunk ES, Wazuh, Elastic]
+hunting: [EVTX, Sigma-like logic, KQL-style queries]
+network: [Wireshark, IDS feeds, pfSense]
+vuln-management: [Nessus, OpenVAS, CVSS]
+automation: [Bash, PowerShell]
+reporting: [exec-summaries, stakeholder-updates]
+</pre>
+        </div>
+      </div>
+
+      <div id="certs" class="pane" role="region">
+        <div class="code" aria-label="certs.json">
+<pre>{
+  "certifications": [
+    "CompTIA Security+", "CompTIA CySA+", "CompTIA Pentest+",
+    "CompTIA Network+", "CompTIA A+", "ISC2 SSCP",
+    "LPI Linux Essentials", "ITIL 4"
+  ],
+  "badges": "https://www.credly.com/"
+}</pre>
+        </div>
+      </div>
+
+      <div id="contact" class="pane" role="region">
+        <div class="grid3">
+          <div class="card">
+            <h3>Contact</h3>
+            <p>Email is best. I reply quickly.</p>
+            <p><a href="mailto:mahdighaznawy2004@gmail.com">mahdighaznawy2004@gmail.com</a></p>
+            <p><a href="/assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" download>Download Resume</a></p>
+          </div>
+          <div class="card">
+            <h3>Links</h3>
+            <ul>
+              <li><a href="https://github.com/MahdiQand" target="_blank" rel="noopener">GitHub</a></li>
+              <li><a href="https://www.linkedin.com/in/mahdi-ghaznawy-3aaa3b315/" target="_blank" rel="noopener">LinkedIn</a></li>
+              <li><a href="https://mahdiqand.github.io/IronGrid-website/" target="_blank" rel="noopener">IronGrid Security</a></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>10‑second summary</h3>
+            <ul>
+              <li>Hands-on SOC portfolio</li>
+              <li>Detections, IR playbooks, vuln reports</li>
+              <li>24 dashboards • 60+ detections • 100% lab-based</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="status"><span>:/home/mahdi</span><span>Press <span class="kbd">/</span> for Palette • <span class="kbd">R</span> Resume • <span class="kbd">?</span> Help</span></div>
+    </section>
+  </main>
+
+  <!-- Terminal -->
+  <section class="terminal" aria-label="Terminal">
+    <div class="term">
+      <div class="term-head"><span class="dot" style="background:#ff5f56"></span><span class="dot" style="background:#ffbd2e"></span><span class="dot" style="background:#27c93f"></span><span style="margin-left:8px;color:var(--muted)">mahdi@portfolio:~</span></div>
+      <div class="out" id="out" aria-live="polite"></div>
+      <div class="input"><span class="prompt">mahdi@host</span>:<span class="prompt">~$</span><input id="cmd" type="text" aria-label="Command line" placeholder="type 'help' and press Enter" autocomplete="off"/></div>
+    </div>
+  </section>
+
+  <footer class="wrap" style="justify-content:center;color:var(--muted);padding-bottom:40px">© <span id="year"></span> Mahdi Ghaznawy · built with plain HTML/CSS/JS</footer>
+
+  <!-- Command Palette -->
+  <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Command Palette">
+    <div class="pal">
+      <header><input id="palInput" placeholder="Jump to… (projects, docs, skills, certs, contact, resume, irongrid)" /></header>
+      <ul id="palList"></ul>
+    </div>
+  </div>
+
+  <script>
+    // ===== Code Rain background =====
+    const rain = document.getElementById('rain');
+    const ctx = rain.getContext('2d');
+    let w, h, cols, yPos, chars;
+    function resize(){ w = rain.width = window.innerWidth; h = rain.height = window.innerHeight; cols = Math.floor(w/14); yPos = Array(cols).fill(0); chars = '01▮▯░▒▓/\\|-=+'.split(''); }
+    function draw(){ ctx.fillStyle = 'rgba(9,12,18,0.20)'; ctx.fillRect(0,0,w,h); ctx.fillStyle = '#64ffda'; ctx.font = '14px monospace'; for(let i=0;i<cols;i++){ const text = chars[Math.floor(Math.random()*chars.length)]; ctx.fillText(text, i*14, yPos[i]*14); yPos[i] = yPos[i]*14 > h && Math.random()>0.975 ? 0 : yPos[i]+1; } requestAnimationFrame(draw); }
+    window.addEventListener('resize', resize); resize(); draw();
+
+    // ===== Tabs / Explorer sync =====
+    const tabs = document.querySelectorAll('.tab');
+    const panes = document.querySelectorAll('.pane');
+    const nodes = document.querySelectorAll('.node');
+    function openPane(id){ panes.forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); tabs.forEach(t=>t.classList.toggle('active', t.dataset.open===id)); nodes.forEach(n=>n.classList.toggle('active', n.dataset.open===id)); }
+    tabs.forEach(t=>t.addEventListener('click',()=>openPane(t.dataset.open)));
+    nodes.forEach(n=>n.addEventListener('click',()=>openPane(n.dataset.open)));
+
+    // ===== Terminal =====
+    const out = document.getElementById('out');
+    const cmd = document.getElementById('cmd');
+    const lines = [
+      {t:'whoami', r: 'Mahdi Ghaznawy — Cybersecurity Analyst'},
+      {t:'goals', r:'Entry-level SOC / Analyst role. Bring detections, IR discipline, and clean reporting.'},
+      {t:'skills', r:'SIEM (Splunk, Wazuh, ELK) · IR playbooks · Threat hunting · Nessus/OpenVAS · pfSense · Bash/PowerShell'},
+      {t:'projects', r:'Opening projects…'},
+      {t:'docs', r:'Opening SOC deliverables…'},
+      {t:'certs', r:'Security+, CySA+, Pentest+, Network+, A+, SSCP, Linux Essentials, ITIL 4'},
+      {t:'resume', r:'Downloading resume…'},
+      {t:'irongrid', r:'Opening IronGrid Security…'},
+      {t:'contact', r:'Email: mahdighaznawy2004@gmail.com'},
+      {t:'help', r:"Available: whoami, goals, skills, projects, docs, certs, resume, irongrid, contact, clear"}
+    ];
+    function print(s){ const p=document.createElement('p'); p.className='line'; p.textContent=s; out.appendChild(p); out.scrollTop=out.scrollHeight; }
+    function run(command){ const l=lines.find(x=>x.t===command); print('> '+command); if(!l){ if(command==='clear'){ out.innerHTML=''; return;} print('command not found. type \u2018help\u2019'); return;} print(l.r); if(command==='projects') openPane('projects'); if(command==='docs') openPane('docs'); if(command==='resume') window.open('/assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf','_blank'); if(command==='irongrid') window.open('https://mahdiqand.github.io/IronGrid-website/','_blank'); }
+    print('type \u2018help\u2019 to begin. press / for command palette.');
+    cmd.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ run(cmd.value.trim()); cmd.value=''; } });
+
+    // ===== Keyboard shortcuts =====
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='/' && document.activeElement!==cmd){ e.preventDefault(); openPalette(); }
+      if((e.key==='r'||e.key==='R') && document.activeElement!==cmd){ window.open('/assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf','_blank'); }
+      if(e.key==='?' && document.activeElement!==cmd){ alert('Shortcuts:\n/ palette\nR resume\nTabs: click or use palette\nTerminal: type help'); }
+    });
+
+    // ===== Command Palette =====
+    const pal = document.getElementById('palette');
+    const palInput = document.getElementById('palInput');
+    const palList = document.getElementById('palList');
+    const actions = [
+      {k:'Open: README.md', fn:()=>openPane('summary')},
+      {k:'Open: projects/', fn:()=>openPane('projects')},
+      {k:'Open: soc-deliverables/', fn:()=>openPane('docs')},
+      {k:'Open: skills.yaml', fn:()=>openPane('skills')},
+      {k:'Open: certs.json', fn:()=>openPane('certs')},
+      {k:'Open: contact.txt', fn:()=>openPane('contact')},
+      {k:'Download: Resume.pdf', fn:()=>window.open('/assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf','_blank')},
+      {k:'Visit: IronGrid Security', fn:()=>window.open('https://mahdiqand.github.io/IronGrid-website/','_blank')},
+      {k:'Visit: GitHub', fn:()=>window.open('https://github.com/MahdiQand','_blank')},
+      {k:'Visit: LinkedIn', fn:()=>window.open('https://www.linkedin.com/in/mahdi-ghaznawy-3aaa3b315/','_blank')}
+    ];
+    function openPalette(){ pal.style.display='flex'; palInput.value=''; renderList(''); setTimeout(()=>palInput.focus(), 0); }
+    function closePalette(){ pal.style.display='none'; }
+    function renderList(q){ palList.innerHTML=''; const f = actions.filter(a=>a.k.toLowerCase().includes(q.toLowerCase())); f.forEach((a,i)=>{ const li=document.createElement('li'); li.textContent=a.k; const hint=document.createElement('span'); hint.textContent=i+1; hint.style.opacity=.4; li.appendChild(hint); li.addEventListener('click',()=>{ a.fn(); closePalette(); }); palList.appendChild(li); }); }
+    palInput.addEventListener('input', e=>renderList(e.target.value));
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePalette(); });
+    pal.addEventListener('click', e=>{ if(e.target===pal) closePalette(); });
+
+    // Initial year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
