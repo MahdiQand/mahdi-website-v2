@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mahdi Ghaznawy — Cybersecurity & IT</title>
-  <meta name="description" content="Mahdi Ghaznawy — cybersecurity and IT portfolio: SOC-modeled lab, SIEM, incident response, vulnerability management, and real, documented deliverables." />
+  <meta name="description" content="Mahdi Ghaznawy — cybersecurity and IT portfolio: SOC-modeled lab, SIEM, incident response, vulnerability management, IT operations, and documented deliverables." />
   <meta name="author" content="Mahdi Ghaznawy" />
 
   <!-- Canonical & robots -->
   <link rel="canonical" href="./">
   <meta name="robots" content="index,follow">
 
-  <!-- Favicons / PWA tint (reuse your current asset for now) -->
+  <!-- Favicons / PWA tint -->
   <link rel="icon" href="./assets/Mahdi-Logo.png">
   <link rel="apple-touch-icon" href="./assets/Mahdi-Logo.png">
   <meta name="theme-color" content="#0a0f1a" media="(prefers-color-scheme: dark)">
@@ -19,7 +19,7 @@
 
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Mahdi Ghaznawy — Cybersecurity & IT" />
-  <meta property="og:description" content="SOC-modeled portfolio with SIEM monitoring, incident response, vuln management, forensics, and downloadable reports." />
+  <meta property="og:description" content="SOC-modeled portfolio with SIEM monitoring, incident response, vuln management, forensics, IT operations, and downloadable reports." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="./" />
   <meta property="og:image" content="./assets/Mahdi-Logo.png" />
@@ -103,7 +103,7 @@
     }
     .noise::after{
       content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.05;
-      background-image:url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'120\' height=\'120\'><filter id=\'n\'><feTurbulence baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/></filter><rect width=\'100%\' height=\'100%\' filter=\'url(%23n)\' opacity=\'0.6\'/></svg>');
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="n"><feTurbulence baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.6"/></svg>');
     }
     .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.08); }
     .lift { transition: transform .22s ease, box-shadow .22s ease; }
@@ -150,11 +150,16 @@
       </nav>
 
       <div class="flex items-center gap-2">
-        <a href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf"
-           target="_blank" rel="noopener" type="application/pdf"
-           class="hidden sm:inline-flex items-center gap-2 rounded-xl bg-cyber px-4 py-2 text-base-900 font-semibold shadow-glow hover:bg-cyber-600">
-          Resume
-        </a>
+        <!-- Resume picker (no JS: details/summary) -->
+        <details class="hidden sm:block relative">
+          <summary class="list-none inline-flex items-center gap-2 rounded-xl bg-cyber px-4 py-2 text-base-900 font-semibold shadow-glow hover:bg-cyber-600 cursor-pointer select-none">
+            Resume
+          </summary>
+          <div class="absolute right-0 mt-2 w-64 rounded-xl glass ring-1 ring-white/10 p-2 z-50">
+            <a href="./assets/Mahdi_Ghaznawy_IT_Resume.pdf" target="_blank" rel="noopener" type="application/pdf" class="block px-3 py-2 rounded-lg hover:bg-white/10">Download IT Resume</a>
+            <a href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" target="_blank" rel="noopener" type="application/pdf" class="block px-3 py-2 rounded-lg hover:bg-white/10">Download Cybersecurity Resume</a>
+          </div>
+        </details>
 
         <!-- Mobile menu button -->
         <button id="menuBtn" class="md:hidden inline-flex items-center justify-center p-2 rounded-lg border border-white/15"
@@ -177,7 +182,9 @@
         <a class="py-2 hover:text-cyber" href="https://github.com/MahdiQand" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a class="py-2 hover:text-cyber" href="https://www.linkedin.com/in/mahdi-ghaznawy-3aaa3b315" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a class="py-2 hover:text-base-900 bg-cyber text-center rounded-lg font-semibold mt-1"
-           href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">Resume</a>
+           href="./assets/Mahdi_Ghaznawy_IT_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">IT Resume</a>
+        <a class="py-2 hover:text-base-900 bg-cyber text-center rounded-lg font-semibold"
+           href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">Cybersecurity Resume</a>
       </div>
     </nav>
   </header>
@@ -191,7 +198,7 @@
             <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
             Actively seeking cybersecurity and IT roles
           </div>
-          <h1 class="mt-3 text-4xl md:text-6xl font-extrabold leading-tight">Protect. Optimize. <span class="text-cyber">Deliver.</span></h1>
+          <h1 class="mt-3 text-4xl md:text-6xl font-extrabold leading-tight">Secure systems. <span class="text-cyber">Keep business moving.</span></h1>
           <p class="mt-4 max-w-prose text-white/80">I am an Information Systems and Cybersecurity Analyst with a SOC-modeled lab since 2022. I focus on SIEM monitoring, incident response, vulnerability management, and practical IT operations with clear, documented results.</p>
           <div class="mt-7 flex flex-wrap gap-3">
             <a href="#projects" class="lift inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2">Explore Projects</a>
@@ -223,7 +230,7 @@
                 <span class="rounded-md bg-white/10 px-2 py-0.5">sourcetype=wineventlog</span>
               </div>
 <pre class="mt-3 overflow-x-auto whitespace-pre-wrap">`notable`
-| search risk_score &gt;= 70 OR signature="Mimikatz"
+| search risk_score >= 70 OR signature="Mimikatz"
 | stats count by src, user, signature
 | sort -count
 | head 5</pre>
@@ -261,6 +268,7 @@
             <li>• Splunk ES, Wazuh, Elastic</li>
             <li>• Nessus, OpenVAS</li>
             <li>• pfSense, GoPhish</li>
+            <li>• Windows, Linux, Active Directory, Office 365</li>
           </ul>
         </div>
         <div class="glass p-6 rounded-2xl lift">
@@ -279,7 +287,6 @@
       <div class="mx-auto max-w-7xl px-4">
         <div class="flex items-end justify-between gap-4 mb-8">
           <h2 class="text-3xl md:text-4xl font-extrabold">Projects</h2>
-          <span class="text-sm text-white/60">All simulated or lab-based engagements</span>
         </div>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <!-- Keep your same project files/paths -->
@@ -434,6 +441,12 @@
             <h3 class="font-bold">Vulnerability Management</h3>
             <p class="text-white/80 text-sm mt-1">Nessus/OpenVAS scans, CVSS priorities, remediation plans.</p>
           </div>
+          <!-- Added IT card -->
+          <div class="glass p-6 rounded-2xl lift md:col-span-3">
+            <i data-lucide="laptop" class="w-6 h-6 text-cyber mb-3"></i>
+            <h3 class="font-bold">IT Operations & Support</h3>
+            <p class="text-white/80 text-sm mt-1">Windows and Linux administration, Active Directory, VPNs, Office 365, ticket-based support and troubleshooting.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -479,7 +492,8 @@
           <p class="text-white/75 mb-6">Recruiters, I am ready to contribute on day one. Let us talk about how this work maps to your role.</p>
           <div class="space-y-3 text-white/85">
             <div class="flex items-center gap-3"><i data-lucide="mail" class="w-5 h-5 text-cyber"></i> <a class="hover:underline" href="mailto:mahdighaznawy2004@gmail.com">mahdighaznawy2004@gmail.com</a></div>
-            <div class="flex items-center gap-3"><i data-lucide="file-text" class="w-5 h-5 text-cyber"></i> <a class="hover:underline" href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">Download Resume</a></div>
+            <div class="flex items-center gap-3"><i data-lucide="file-text" class="w-5 h-5 text-cyber"></i> <a class="hover:underline" href="./assets/Mahdi_Ghaznawy_IT_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">Download IT Resume</a></div>
+            <div class="flex items-center gap-3"><i data-lucide="file-text" class="w-5 h-5 text-cyber"></i> <a class="hover:underline" href="./assets/Mahdi_Ghaznawy_Cybersecurity_Resume.pdf" target="_blank" rel="noopener" type="application/pdf">Download Cybersecurity Resume</a></div>
           </div>
         </div>
       </div>
